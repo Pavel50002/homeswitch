@@ -1,29 +1,35 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Привет Лариса"/>
-    <HelloWorld msg="Привет Паша"/>
+<HeadSwitch></HeadSwitch>
+
+    <Menu class="menu"></Menu>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
+
+import HeadSwitch from "@/components/HeadSwitch";
+import Menu from "@/components/Menu";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Menu,
+      HeadSwitch
+
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.menu{
+    position: absolute;
+    width: 150px;
+    height: 92%;
+    background-color: #3a3538;
+    overflow-y: auto; /*Прокрутка*/
+    margin: -0px 2px 2px 0px;
 }
+
 </style>
