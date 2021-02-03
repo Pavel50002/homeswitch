@@ -1,79 +1,87 @@
 <template>
     <div id="app">
-        <HeadSwitch></HeadSwitch>
         <div class="fetch">
             <transition name="transitionmenu">
-                <!--            <Menu class="menu" v-bind:class="{ move: showMenu, move1: !showMenu }">-->
-                <!--            </Menu>-->
                 <div class="content-menu"
                      v-bind:class="{ move: showMenu, move1: !showMenu }"
-                     v-bind:style="{width: widthh + 'px'}">
+                     v-bind:style="{width: openMenu + 'px'}"
+                     v-if="checktokenvariable === true">
                     <div class="body-meny">
-                        <ul>
-                            <li>
-                                <a class="item-button" href="/device">Устройства</a>
-                            </li>
-                            <li>
-                                <a class="item-button" href="/device">Info</a>
-                            </li>
-                        </ul>
-                        <button class="open-menu" @click="showMenu = !showMenu">menu</button>
-                        <div style="color: red">{{showMenu}}</div>
-                        <div>{{widthh}}</div>
+                        <Menu></Menu>
+                        <transition>
+                            <span class="open-menu" @click="showMenu = !showMenu"
+                                  v-bind:style="{transform: 'rotate('+ this.revertArr +'deg)'}">
+                            </span>
+                        </transition>
                     </div>
                 </div>
             </transition>
-            <BodySwitch class="body-switch"></BodySwitch>
+            <div class="header-body">
+                <HeadSwitch v-if="checktokenvariable === true" @changevariablefalse="checktokenvariable = $event" :checktokenvariabletrue="checktokenvariable"></HeadSwitch>
+                <router-view @changevariabletrue="checktokenvariable = $event" :checktokenvariable="checktokenvariable"></router-view>
+            </div>
         </div>
     </div>
 </template>
+
 <script>
-
-
     import HeadSwitch from "@/components/HeadSwitch";
-    // import Menu from "@/Menu";
-    import BodySwitch from "@/components/Body-Switch";
+    import Menu from "@/components/Menu";
+
 
     export default {
-        // props: {
-        //   showMenu: Boolean
-        // },
 
         name: 'App',
         components: {
-            BodySwitch,
-            // Menu,
-            HeadSwitch
+            Menu,
+            HeadSwitch,
+
         },
         data() {
             return {
                 showMenu: true,
-                widthh: 0,
+                checktokenvariable: false,
+         username: '',
+
 
             }
         },
 
+
         methods: {
-            // fas() {
-            //     if (this.showMenu === true) {
-            //         this.widthh = 40;
-            //     } else {
-            //         this.widthh  = + 70;
-            //     }
-            // }
+            checktoken: function () {
+                if (localStorage.getItem('token') !== null) {
+                    this.$router.push('/device');
+                } else {
+                    this.checktokenvariable = false;
+                }
+            }
         },
 
-        mounted() { //Хук жизненого цикла
-            setInterval(() => {
-                if (this.showMenu === true) {
-                    this.widthh = 48;
+        created() {
+            this.checktoken();
+        },
+        computed: {
+            revertArr: function () {
+                let reversArrow1;
+                if (this.showMenu) {
+                    reversArrow1 = 45
                 } else {
-                    this.widthh  = + 190;
+                    reversArrow1 = -135
                 }
-            }, 1000);
+                return reversArrow1;
+            },
+            openMenu: function () {
+                let openMenu1;
+                if (this.showMenu) {
+                    openMenu1 = 48
+                } else {
+                    openMenu1 = 200
+                }
+                return openMenu1;
+            }
+        },
 
-
-        }
     }
 </script>
 
@@ -103,45 +111,42 @@
 
     /*-----------------------------*/
 
+    .header-body {
+        width: 100%;
+    }
 
     .fetch {
         display: flex;
         flex-direction: row;
         justify-content: start;
-        height: 92vh;
+        height: 100vh; /* Если используется шапка можно установить ~ 92vm*/
         width: 100vm;
         overflow-y: auto; /*Прокрутка*/
-        margin: -0px 2px 2px 0px;
+        /*margin: -0px 2px 2px 0px;*/
     }
 
     .content-menu {
-        overflow: hidden;
+        overflow: hidden; /* Убрать скролл */
+        list-style-type: none; /* Убираем маркеры у списка */
         display: flex;
+        flex-direction: column;
         height: 100%;
         background-color: #3a3538;
         overflow-y: auto;
 
     }
 
-    .body-switch {
-        display: flex;
-        flex-direction: row;
-        justify-content: start;
-        height: 100%;
-        width: 100%;
-        overflow-y: auto; /*Прокрутка*/
-    }
 
     .body-meny {
         width: 100%;
-        height: 100%;
+        height: 95%;
         display: flex;
         flex-direction: column;
         justify-content: start;
     }
 
     .item-button {
-        margin: 5px;
+        margin: 5px 0px 0px 5px;
         color: #907c7a;
         font-family: Candara; /*Шрифт*/
         font-size: 18px; /*Размер текста*/
@@ -149,7 +154,12 @@
     }
 
     .open-menu {
-        width: 50px;
-        height: 20px;
+        width: 15px;
+        height: 15px;
+        margin: 1px 1px 1px 10px;
+        border-top: 8px solid white;
+        border-right: 8px solid white;
+        margin-right: 10px;
+        transition: 1s;
     }
 </style>

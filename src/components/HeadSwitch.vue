@@ -1,13 +1,9 @@
 <template>
     <div class="content-body">
-        <div class="name-project">
-            <img class="header-logo" src="../assets/img/switch-icon.jpg" alt="Switch"/>
-            Switch Home
-        </div>
         <div class="content-header-user-sign-out">
-            <div class="name-user">Ершов Павел</div>
+            <div class="name-user">{{this.username}}</div>
             <div class="sign-out">
-                <button>Sign out</button>
+                <button class="sign-out" @click="signIn">Sign out</button>
             </div>
         </div>
     </div>
@@ -15,8 +11,41 @@
 
 <script>
 
+
+    import routes from "@/routes";
+
     export default {
-        name: "HeadSwitch"
+        name: "HeadSwitch",
+        component: routes,
+        props: ['checktokenvariable'],
+
+        data() {
+            return {
+                username: '',
+            }
+        },
+        mounted() {
+            this.username = localStorage.getItem('nameuser')
+        },
+        methods: {
+            signIn() {
+                this.$emit('changevariablefalse', false)
+                this.token = null;
+                localStorage.clear();
+                this.$router.push('/')
+
+
+            },
+            checktoken() {
+                if (localStorage.getItem('token') === null) {
+                    this.$router.push('/');
+                }
+            },
+            created() {
+                this.checktoken();
+            },
+
+        }
     }
 
 </script>
@@ -26,23 +55,12 @@
     .content-body {
         display: flex;
         flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
         width: auto;
-        height: 50px;
+        height: 40px;
         background: #6e6669;
     }
 
-    .name-project {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin: 10px;
-        color: #483e3d;
-        font-family: Candara; /*Шрифт*/
-        font-size: 24px; /*Размер текста*/
-        font-weight: 800; /*Насыщенность шрифта*/
-    }
 
     .name-user {
         margin: 5px;
@@ -57,9 +75,22 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+
     }
-    .header-logo{
-        width: 35px;
+
+    .sign-out {
+        margin: 20px;
+        font-size: 17px;
+        color: #a9a5a5;
+        background: #6e6669;
         margin: 5px;
+        font-family: Candara; /*Шрифт*/
+        font-weight: 800; /*Насыщенность шрифта*/
     }
+
+    .sign-out:hover {
+        color: white;
+        transition: 1s;
+    }
+
 </style>
