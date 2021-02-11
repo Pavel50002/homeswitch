@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div class="apps" id="app" style="overflow: hidden">
         <div class="fetch">
             <transition name="transitionmenu">
                 <div class="content-menu"
@@ -8,17 +8,23 @@
                      v-if="checktokenvariable === true">
                     <div class="body-meny">
                         <Menu></Menu>
-                        <transition>
+                    </div>
+                    <transition>
                             <span class="open-menu" @click="showMenu = !showMenu"
                                   v-bind:style="{transform: 'rotate('+ this.revertArr +'deg)'}">
                             </span>
-                        </transition>
-                    </div>
+                    </transition>
                 </div>
             </transition>
             <div class="header-body">
-                <HeadSwitch v-if="checktokenvariable === true" @changevariablefalse="checktokenvariable = $event" :checktokenvariabletrue="checktokenvariable"></HeadSwitch>
-                <router-view @changevariabletrue="checktokenvariable = $event" :checktokenvariable="checktokenvariable"></router-view>
+                <HeadSwitch v-if="checktokenvariable === true" @changevariablefalse="checktokenvariable = $event"
+                            :checktokenvariabletrue="checktokenvariable"></HeadSwitch>
+
+                <div class="body-head-2">
+                    <InfoBoard class="infoboard"></InfoBoard>
+                    <router-view class="vue" @changevariabletrue="checktokenvariable = $event"
+                                 :checktokenvariable="checktokenvariable"></router-view>
+                </div>
             </div>
         </div>
     </div>
@@ -29,10 +35,14 @@
     import Menu from "@/components/Menu";
 
 
+
+
     export default {
 
         name: 'App',
         components: {
+
+
             Menu,
             HeadSwitch,
 
@@ -41,7 +51,7 @@
             return {
                 showMenu: true,
                 checktokenvariable: false,
-         username: '',
+                username: '',
 
 
             }
@@ -113,27 +123,57 @@
 
     .header-body {
         width: 100%;
+        position: inherit;
+        z-index: 0;
+        height: 40px;
+    }
+
+    .body-head-2 {
+        position: relative;
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+
+
+    }
+
+    .vue {
+        position: absolute;
+        overflow-y: auto;
+        height: 96vh;
+        width: 100%;
+        /*position: relative;*/
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        /*height: 100vm;*/
+        /*width: 100%;*/
+        /*overflow-y: auto; !*Прокрутка*!*/
+        transition: 1.5s;
+        transform: translateX(0px);
     }
 
     .fetch {
         display: flex;
         flex-direction: row;
         justify-content: start;
-        height: 100vh; /* Если используется шапка можно установить ~ 92vm*/
+        /*height: 100vh; !* Если используется шапка можно установить ~ 92vm*!*/
         width: 100vm;
-        overflow-y: auto; /*Прокрутка*/
+        /*overflow-y: auto; !*Прокрутка*!*/
         /*margin: -0px 2px 2px 0px;*/
     }
 
     .content-menu {
+
         overflow: hidden; /* Убрать скролл */
         list-style-type: none; /* Убираем маркеры у списка */
         display: flex;
         flex-direction: column;
-        height: 100%;
+        height: 100vh;
         background-color: #3a3538;
         overflow-y: auto;
-
+        z-index: 1;
+        width: 100%;
     }
 
 
@@ -161,5 +201,22 @@
         border-right: 8px solid white;
         margin-right: 10px;
         transition: 1s;
+        z-index: 3;
     }
+
+    .only-body {
+
+        z-index: -1;
+    }
+
+    .only-body:hover {
+        overflow-y: auto;
+    }
+
+    .infoboard{
+        flex-direction: column;
+        align-items: revert;
+        position: fixed;
+    }
+
 </style>

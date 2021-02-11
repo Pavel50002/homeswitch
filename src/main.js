@@ -7,6 +7,8 @@ import App from './App.vue'
 
 //Авторизация
 import Axios from 'axios'
+
+
 Axios.defaults.baseURL = 'http://192.168.1.76:8090';
 Vue.prototype.$http = Axios;
 const token = localStorage.getItem('token')

@@ -1,4 +1,5 @@
 <template>
+    <div class="header-content">
     <div class="content-body">
         <div class="content-header-user-sign-out">
             <div class="name-user">{{this.username}}</div>
@@ -6,6 +7,9 @@
                 <button class="sign-out" @click="signIn">Sign out</button>
             </div>
         </div>
+
+    </div>
+        <InfoBord class="infoboard"></InfoBord>
     </div>
 </template>
 
@@ -13,9 +17,11 @@
 
 
     import routes from "@/routes";
+    import InfoBord from "@/components/InfoBoard";
 
     export default {
         name: "HeadSwitch",
+        components: {InfoBord},
         component: routes,
         props: ['checktokenvariable'],
 

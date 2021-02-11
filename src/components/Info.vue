@@ -1,5 +1,43 @@
 <template>
-    <div>Info</div>
+    <div class="body-switch">
+        <div>Info</div>
+        <div>Info</div>
+        <div>Info</div> <div>Info</div> <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>
+        <div>Info</div> <div>Info</div> <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>       <div>Info</div>
+        <div>Info</div>
+        <div>Info</div> <div>Info</div> <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>       <div>Info</div>
+        <div>Info</div>
+        <div>Info</div> <div>Info</div> <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>       <div>Info</div>
+        <div>Info</div>
+        <div>Info</div> <div>Info</div> <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>       <div>Info</div>
+        <div>Info</div>
+        <div>Info</div> <div>Info</div> <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>       <div>Info</div>
+        <div>Info</div>
+        <div>Info</div> <div>Info</div> <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>
+        <div>Info</div>
+    </div>
 </template>
 
 <script>

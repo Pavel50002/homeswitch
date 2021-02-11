@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!checktokenvariable">
+    <div v-if="!checktokenvariable" style="position: fixed">
         <div class="auth-head">Web Service Switch Home</div>
         <div class="auth">
             <div class="main-body-auth">
